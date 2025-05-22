@@ -1,0 +1,86 @@
+#random: base de dados
+import random
+#dir(random): lista todos os atributos e métodos disponíveis dentro do módulo random.
+dir (random)
+#help(random.choice): exibe a documentação da função random.choice, que escolhe um item aleatório de uma sequência (lista, tupla, string, etc.).
+help (random.choice)
+#Cria uma lista resultados para guardar os valores sorteados.
+#Sorteia um número aleatório entre 1 e 6 e o adiciona à lista.
+dados = [1,2,3,4,5,6]
+random.choice(dados)
+resultados = []
+n = random.choice([1,2,3,4,5,6])
+resultados.append (n)
+#Esse for roda 1 milhão de vezes, simulando lançamentos de dado.
+#A cada iteração, um número é sorteado da lista dados e adicionado à lista resultados.
+for _ in range(1000000):
+    n = random.choice(dados)
+    resultados.append (n)
+#import numpy as np: importa a biblioteca NumPy, usada para cálculos numéricos eficientes.
+#dir(np): lista todas as funções e objetos disponíveis no módulo numpy.
+#np.mean(resultados): calcula a média dos valores na lista resultados.
+#np.std(resultados): calcula o desvio padrão, indicando a dispersão dos valores.
+import numpy as np
+dir(np)
+np.mean (resultados)
+np.std (resultados)
+#import matplotlib.pyplot as plt: importa a biblioteca matplotlib, usada para criar gráficos.
+#plt.hist(resultados): cria um histograma com os dados, mostrando quantas vezes cada número de 1 a 6 apareceu.
+#plt.show(): exibe o gráfico na tela.
+import matplotlib.pyplot as plt
+plt.hist (resultados)
+#apresentacao do grafico na tela
+plt.show()
+
+
+
+
+
+#Cria uma lista vazia chamada resultados onde os números gerados serão armazenados.
+resultados = []
+#Um laço de repetição que será executado 1000 vezes.
+#O _ é usado como nome da variável de controle porque o valor da iteração não será usado.
+total =1000
+for _ in range (total):
+    n,s = 25,5
+    #Define n = 25 e s = 5, que representam a média (n) e o desvio padrão (s) da distribuição gaussiana.
+    #Gera um número aleatório com distribuição normal, com média 25 e desvio padrão 5.
+    #A função random.gauss(média, desvio_padrão) é usada para isso.
+    #O valor gerado sobrescreve o valor anterior de n.
+    n=random.gauss(25,5)
+    #Adiciona o valor gerado à lista resultados.
+    resultados.append (n)
+    #Usa o matplotlib para criar um histograma com os valores da lista resultados.
+    #Isso mostra a distribuição dos 1000 valores gerados.
+plt.hist(resultados)
+plt.show()
+#Inicializa uma variável contador com zero. Ela será usada para contar quantos valores são maiores ou iguais a 35.
+contador = 0
+#Percorre todos os valores da lista resultados.
+#Para cada valor t, verifica se ele é maior ou igual a 35.
+#Se for, incrementa o contador.
+for t in resultados:
+    if t >=35:
+        contador +=1
+print(contador/total)
+#banco de dados sqlite ( o mais simples)
+#importar uma biblioteca que aceite ele
+import sqlite3
+conn = sqlite3.connect("chinook.db")
+#texto que consulta na tabela
+query = """
+    select*from customers
+    where country = 'Canada';
+"""   
+R = conn.execute(query).fetchall()
+for row in R[:5]:
+    print(row)
+print(len(R))
+#quantos clientes tem no canada
+query = """
+    select count(*)
+    from customers
+    where country = 'Canada'
+"""
+R= conn.execute (query)
+print (R)
